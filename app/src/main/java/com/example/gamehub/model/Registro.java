@@ -1,4 +1,4 @@
 package com.example.gamehub.model;
 
-public class registro {
+public class Registro {
 }
