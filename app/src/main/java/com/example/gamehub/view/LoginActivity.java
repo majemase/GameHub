@@ -11,16 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.gamehub.R;
 import com.example.gamehub.controller.Usuario;
 import com.example.gamehub.model.Login;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText email_input, pass_input;
-    private Button login_btn;
-    private Login login;
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,27 +35,15 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
-        email_input = findViewById(R.id.email_input);
-        pass_input = findViewById(R.id.pass_input);
-        login_btn = findViewById(R.id.login_btn);
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.view_pager);
 
-        login_btn.setOnClickListener(v -> {
-            String email = email_input.getText().toString();
-            String pass = pass_input.getText().toString();
+        LoginPagerAdapter adapter = new LoginPagerAdapter(this);
+        viewPager.setAdapter(adapter);
 
-            login = new Login(this);
-
-            login.loginUsuario(email, pass);
-        });
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) ->
+                tab.setText(position == 0 ? "Login" : "Registro")
+        ).attach();
     }
 
-    public void loginCorrecto(Usuario usuario){
-        Toast.makeText(this, "Login correcto: " + usuario.toString(), Toast.LENGTH_SHORT).show();
-        Log.i("Login", "Login correcto: " + usuario.toString());
-    }
-
-    public void loginIncorrecto(String error){
-        Toast.makeText(this, "Login incorrecto: "+ error, Toast.LENGTH_SHORT).show();
-        Log.e("Error", "Login incorrecto: " + error);
-    }
 }

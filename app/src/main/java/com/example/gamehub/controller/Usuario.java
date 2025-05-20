@@ -10,15 +10,17 @@ public class Usuario {
     private int id;
     private String nombre;
     private String email;
+    private String password;
     private String id_firebase;
     private String nickname;
     private String url_avatar;
     private LocalDateTime fecha_creacion;
 
-    public Usuario(int id, String nombre, String email, String id_firebase, String nickname, String url_avatar, LocalDateTime fecha_creacion) {
+    public Usuario(int id, String nombre, String email, String password, String id_firebase, String nickname, String url_avatar, LocalDateTime fecha_creacion) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
+        this.password = password;
         this.id_firebase = id_firebase;
         this.nickname = nickname;
         this.url_avatar = url_avatar;
@@ -47,6 +49,14 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getId_firebase() {
