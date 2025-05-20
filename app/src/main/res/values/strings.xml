@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GameHub</string>
+    <string name="URL_API">http://apigamehub.ddns.net/api</string>
 </resources>

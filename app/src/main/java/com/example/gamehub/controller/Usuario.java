@@ -1,5 +1,9 @@
 package com.example.gamehub.controller;
 
+import com.example.gamehub.Utils.LocalDateTimeAdapter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.time.LocalDateTime;
 
 public class Usuario {
@@ -75,5 +79,24 @@ public class Usuario {
 
     public void setFecha_creacion(LocalDateTime fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
+    }
+
+    public static Usuario fromJson(String json){
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+        return gson.fromJson(json, Usuario.class);
+    }
+
+    public String toString(){
+        return "Usuario {" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", id_firebase='" + id_firebase + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", url_avatar='" + url_avatar + '\'' +
+                ", fecha_creacion='" + fecha_creacion + '\'' +
+                '}';
     }
 }

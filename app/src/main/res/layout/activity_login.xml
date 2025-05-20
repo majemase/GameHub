@@ -51,7 +51,7 @@
         android:paddingHorizontal="24dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputPass"
+            android:id="@+id/pass_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -59,7 +59,7 @@
 
     <!-- Botón -->
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/login_btn"
         style="?attr/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
