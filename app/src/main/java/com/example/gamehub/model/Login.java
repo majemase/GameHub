@@ -1,6 +1,7 @@
 package com.example.gamehub.model;
 
-import androidx.annotation.NonNull;
+import android.app.Activity;
+import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -8,70 +9,51 @@ import com.android.volley.toolbox.Volley;
 import com.example.gamehub.Utils.CallBack;
 import com.example.gamehub.Utils.Utilidades;
 import com.example.gamehub.controller.Usuario;
-import com.example.gamehub.view.LoginActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONObject;
 
 public class Login {
-    private final LoginActivity view;
+    private final Context context;
     private final FirebaseAuth auth;
 
-    public Login(LoginActivity view){
-        this.view = view;
+    public Login(Context context){
+        this.context = context;
         this.auth = FirebaseAuth.getInstance();
     }
 
-    public void loginUsuario(String email, String pass){
+    public void loginUsuario(String email, String pass, CallBack<Usuario> callback){
         auth.signInWithEmailAndPassword(email, pass)
-                .addOnCompleteListener(view, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser usuario = auth.getCurrentUser();
-                            if(usuario != null){
-                                recogerDatosUsuario(usuario.getUid(), new CallBack<Usuario>() {
-
-                                    @Override
-                                    public void onSuccess(Usuario usuario) {
-                                        view.loginCorrecto(usuario);
-                                    }
-
-                                    @Override
-                                    public void onError(String msg) {
-                                        view.loginIncorrecto(msg);
-                                    }
-                                });
-                            }
-                        }else{
-                            view.loginIncorrecto(task.getException().getMessage());
-                        }
+                .addOnCompleteListener((Activity) context, task -> {
+                    if(task.isSuccessful()){
+                        FirebaseUser user = auth.getCurrentUser();
+                        recogerDatosUsuario(user.getUid(), callback);
+                    } else {
+                        callback.onError(task.getException().getMessage());
                     }
                 });
     }
 
-    public void recogerDatosUsuario(String id_firebase, CallBack<Usuario> callBack){
-        String url = Utilidades.getUrl(view) + "/usuario/getDatosUsuario.php?id=" + id_firebase;
+    public void recogerDatosUsuario(String id_firebase, CallBack<Usuario> callback){
+        String url = Utilidades.getUrl(context) + "/usuario/getDatosUsuario.php?id=" + id_firebase;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
                         if(response.getBoolean("success")){
                             JSONObject data = response.getJSONObject("data");
                             Usuario usuario = Usuario.fromJson(data.toString());
-                            callBack.onSuccess(usuario);
-                        }else{
-                            callBack.onError(response.getString("msg"));
+                            callback.onSuccess(usuario);
+                        } else {
+                            callback.onError(response.getString("msg"));
                         }
                     } catch (Exception e) {
-                        callBack.onError(e.getMessage());
+                        callback.onError(e.getMessage());
                     }
                 },
-                error -> callBack.onError(error.getMessage()));
+                error -> callback.onError(error.getMessage())
+        );
 
-        Volley.newRequestQueue(view).add(request);
+        Volley.newRequestQueue(context).add(request);
     }
 }
