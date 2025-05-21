@@ -14,11 +14,11 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Registro {
+public class ModeloRegistro {
     private final Context context;
     private final FirebaseAuth auth;
 
-    public Registro(Context context){
+    public ModeloRegistro(Context context){
         this.context = context;
         this.auth = FirebaseAuth.getInstance();
     }

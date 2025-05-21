@@ -14,11 +14,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONObject;
 
-public class Login {
+public class ModeloLogin {
     private final Context context;
     private final FirebaseAuth auth;
 
-    public Login(Context context){
+    public ModeloLogin(Context context){
         this.context = context;
         this.auth = FirebaseAuth.getInstance();
     }
