@@ -49,7 +49,6 @@ public class ModeloRegistro {
                 response -> {
                     try {
                         if(response.getBoolean("success")){
-
                             callback.onSuccess(usuario);
                         } else {
                             callback.onError(response.getString("msg"));

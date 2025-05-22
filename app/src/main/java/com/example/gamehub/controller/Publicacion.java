@@ -7,22 +7,24 @@ import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Publicacion {
     private int id;
     private Usuario autor;
+    private int numLikes;
+    private int numComentarios;
     private LocalDateTime fecha;
     private String texto;
 
-    public Publicacion(int id, Usuario autor, LocalDateTime fecha, String texto) {
+    public Publicacion(int id, Usuario autor, int numLikes, int numComentarios, LocalDateTime fecha, String texto) {
         this.id = id;
         this.autor = autor;
+        this.numLikes = numLikes;
+        this.numComentarios = numComentarios;
         this.fecha = fecha;
         this.texto = texto;
     }
@@ -41,6 +43,22 @@ public class Publicacion {
 
     public void setAutor(Usuario autor) {
         this.autor = autor;
+    }
+
+    public int getNumLikes() {
+        return numLikes;
+    }
+
+    public void setNumLikes(int numLikes) {
+        this.numLikes = numLikes;
+    }
+
+    public int getNumComentarios() {
+        return numComentarios;
+    }
+
+    public void setNumComentarios(int numComentarios) {
+        this.numComentarios = numComentarios;
     }
 
     public LocalDateTime getFecha() {
@@ -79,6 +97,8 @@ public class Publicacion {
         return "Usuario {" +
                 "id='" + id + '\'' +
                 ", autor='" + autor + '\'' +
+                ", numLikes='" + numLikes + '\'' +
+                ", numComentarios='" + numComentarios + '\'' +
                 ", fecha='" + fecha + '\'' +
                 ", texto='='" + texto + '\'' +
                 '}';

@@ -3,6 +3,7 @@ package com.example.gamehub.model;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,13 @@ public class AdaptadorPublicacion extends RecyclerView.Adapter<AdaptadorPublicac
 
         holder.autor_tv.setText(p.getAutor().getNickname());
         holder.contenido_tv.setText(p.getTexto());
+        holder.numLikes_tv.setText(String.valueOf(p.getNumLikes()));
+        holder.numComentarios_tv.setText(String.valueOf(p.getNumComentarios()));
+
+        holder.like_btn.setOnClickListener(v -> {
+            p.setNumLikes(p.getNumLikes() + 1);
+            holder.numLikes_tv.setText(String.valueOf(p.getNumLikes()));
+        });
     }
 
     @Override
@@ -44,12 +52,17 @@ public class AdaptadorPublicacion extends RecyclerView.Adapter<AdaptadorPublicac
 
     public class HolderPublicacion extends RecyclerView.ViewHolder {
 
-        TextView autor_tv, contenido_tv;
+        TextView autor_tv, contenido_tv, numLikes_tv, numComentarios_tv;
+        ImageButton like_btn, comentario_btn;
 
         public HolderPublicacion(@NonNull View itemView) {
             super(itemView);
             autor_tv = itemView.findViewById(R.id.autor_tv);
             contenido_tv = itemView.findViewById(R.id.contenido_tv);
+            numLikes_tv = itemView.findViewById(R.id.numLikes_tv);
+            numComentarios_tv = itemView.findViewById(R.id.numComentarios_tv);
+            like_btn = itemView.findViewById(R.id.like_btn);
+            comentario_btn = itemView.findViewById(R.id.comentario_btn);
         }
     }
 }
