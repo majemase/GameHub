@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.example.gamehub.R;
 import com.example.gamehub.controller.Usuario;
-import com.example.gamehub.model.Registro;
 import com.example.gamehub.Utils.CallBack;
+import com.example.gamehub.model.ModeloUsuario;
 
 import java.time.LocalDateTime;
 
@@ -30,7 +30,7 @@ public class RegistroFragment extends Fragment {
 
     private EditText nombre_input, nickname_input, email_input, pass_input;
     private Button registro_btn;
-    private Registro registro;
+    private ModeloUsuario registro;
 
     public RegistroFragment() {
         // Required empty public constructor
@@ -64,24 +64,28 @@ public class RegistroFragment extends Fragment {
             String email = email_input.getText().toString();
             String pass = pass_input.getText().toString();
 
-            registro = new Registro(requireActivity());
+            if(!nombre.isEmpty() || !nickname.isEmpty() || !email.isEmpty() || !pass.isEmpty()){
+                registro = new ModeloUsuario(requireActivity());
 
-            Usuario usuario = new Usuario(0, nombre, email, pass, "", nickname, "", LocalDateTime.now());
+                Usuario usuario = new Usuario(0, nombre, email, pass, "", nickname, "", LocalDateTime.now());
 
-            registro.registrarUsuario(usuario, new CallBack<Usuario>(){
+                registro.registrarUsuario(usuario, new CallBack<Usuario>(){
 
-                @Override
-                public void onSuccess(Usuario usuario) {
-                    Toast.makeText(getContext(), "Registro correcto: " + usuario.toString(), Toast.LENGTH_SHORT).show();
-                    Log.i("Registro", "Registro correcto");
-                }
+                    @Override
+                    public void onSuccess(Usuario usuario) {
+                        Toast.makeText(getContext(), "Registro correcto", Toast.LENGTH_SHORT).show();
+                        Log.i("Registro", "Registro correcto");
+                    }
 
-                @Override
-                public void onError(String error) {
-                    Toast.makeText(getContext(), "Registro incorrecto: " + error, Toast.LENGTH_SHORT).show();
-                    Log.e("Error", "Registro incorrecto: " + error);
-                }
-            });
+                    @Override
+                    public void onError(String error) {
+                        Toast.makeText(getContext(), "Registro incorrecto", Toast.LENGTH_SHORT).show();
+                        Log.e("Error", "Registro incorrecto: " + error);
+                    }
+                });
+            }else{
+                Toast.makeText(getContext(), "Por favor complete los campos", Toast.LENGTH_LONG).show();
+            }
         });
     }
 }
