@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.example.gamehub.R;
 import com.example.gamehub.controller.Usuario;
-import com.example.gamehub.model.ModeloRegistro;
 import com.example.gamehub.Utils.CallBack;
+import com.example.gamehub.model.ModeloUsuario;
 
 import java.time.LocalDateTime;
 
@@ -30,7 +30,7 @@ public class RegistroFragment extends Fragment {
 
     private EditText nombre_input, nickname_input, email_input, pass_input;
     private Button registro_btn;
-    private ModeloRegistro registro;
+    private ModeloUsuario registro;
 
     public RegistroFragment() {
         // Required empty public constructor
@@ -65,7 +65,7 @@ public class RegistroFragment extends Fragment {
             String pass = pass_input.getText().toString();
 
             if(!nombre.isEmpty() || !nickname.isEmpty() || !email.isEmpty() || !pass.isEmpty()){
-                registro = new ModeloRegistro(requireActivity());
+                registro = new ModeloUsuario(requireActivity());
 
                 Usuario usuario = new Usuario(0, nombre, email, pass, "", nickname, "", LocalDateTime.now());
 

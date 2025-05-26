@@ -1,5 +1,6 @@
 package com.example.gamehub.view;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,8 +11,11 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.gamehub.R;
+import com.example.gamehub.Utils.PerfilPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -24,7 +28,8 @@ public class PerfilFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-    //private ModeloPerfil modeloPerfil;
+    private TextView nickname_tv;
+    private ImageView avatar_iv;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -47,24 +52,31 @@ public class PerfilFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.view_pager);
+        nickname_tv = view.findViewById(R.id.nickname_tv);
+        avatar_iv = view.findViewById(R.id.avatar_iv);
+
+        SharedPreferences preferences = requireActivity().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
+        nickname_tv.setText(preferences.getString("nickname", "nombre de usuario"));
+        // avatar_iv.setImageResource(preferences.getString("avatar", "avatar"));
 
         PerfilPagerAdapter adapter = new PerfilPagerAdapter(requireActivity());
         viewPager.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
-                case 1:
+                case 0:
                     tab.setText("Mis publicaciones");
                     break;
-                case 2:
+                case 1:
                     tab.setText("Mis likes");
                     break;
-                case 3 :
+                case 2:
                     tab.setText("Ajustes");
                     break;
-                default :
-                    tab.setText("Perfil");
+                default:
+                    tab.setText("Mis publicaciones");
                     break;
-            };
+            }
+            ;
         }
         ).attach();
     }

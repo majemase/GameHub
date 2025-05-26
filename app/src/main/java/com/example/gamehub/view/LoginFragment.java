@@ -1,6 +1,7 @@
 package com.example.gamehub.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,8 @@ import android.widget.Toast;
 
 import com.example.gamehub.R;
 import com.example.gamehub.controller.Usuario;
-import com.example.gamehub.model.ModeloLogin;
 import com.example.gamehub.Utils.CallBack;
+import com.example.gamehub.model.ModeloUsuario;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +30,7 @@ public class LoginFragment extends Fragment {
 
     private EditText email_input, pass_input;
     private Button login_btn;
-    private ModeloLogin login;
+    private ModeloUsuario login;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -51,6 +52,13 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        SharedPreferences preferences = requireActivity().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
+        if(preferences.getBoolean("remember", false)){
+            Intent intent = new Intent(getContext(), HomeActivity.class);
+            startActivity(intent);
+            requireActivity().finish();
+        }
+
         email_input = view.findViewById(R.id.email_input);
         pass_input = view.findViewById(R.id.pass_input);
         login_btn = view.findViewById(R.id.login_btn);
@@ -60,13 +68,14 @@ public class LoginFragment extends Fragment {
             String pass = pass_input.getText().toString();
 
             if(!email.isEmpty() || !pass.isEmpty()){
-                login = new ModeloLogin(requireActivity());
+                login = new ModeloUsuario(requireActivity());
 
                 login.loginUsuario(email, pass, new CallBack<Usuario>(){
 
                     @Override
                     public void onSuccess(Usuario usuario) {
                         Intent intent = new Intent(getContext(), HomeActivity.class);
+                        login.guardarUsuario(usuario);
                         startActivity(intent);
                         requireActivity().finish();
                         Toast.makeText(getContext(), "Login correcto", Toast.LENGTH_SHORT).show();

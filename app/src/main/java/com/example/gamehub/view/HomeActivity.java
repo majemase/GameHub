@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.gamehub.R;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -38,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
                 if (item.getItemId() == R.id.homeFragment_nav) loadFragment(new HomeFragment());
                 if (item.getItemId() == R.id.amigosFragment_nav) loadFragment(new AmigosFragment());
                 if (item.getItemId() == R.id.tiendaFragment_nav) loadFragment(new TiendaFragment());
-                //if (item.getItemId() == R.id.perfilFragment_nav) loadFragment(new Fragment4());
+                if (item.getItemId() == R.id.perfilFragment_nav) loadFragment(new PerfilFragment());
                 return true;
             }
         });

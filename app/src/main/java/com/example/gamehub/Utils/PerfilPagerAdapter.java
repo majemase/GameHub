@@ -1,9 +1,13 @@
-package com.example.gamehub.view;
+package com.example.gamehub.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.gamehub.view.AjustesFragment;
+import com.example.gamehub.view.MisLikesFragment;
+import com.example.gamehub.view.MisPublicacionesFragment;
 
 public class PerfilPagerAdapter extends FragmentStateAdapter {
     public PerfilPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
@@ -13,14 +17,12 @@ public class PerfilPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        Fragment fragment;
         switch (position){
-            case 1 -> fragment = new MisPublicacionesFragment();
-            case 2 -> fragment = new MisLikesFragment();
-            case 3 ->  fragment = new AjustesFragment();
-            default -> fragment = null;
+            case 0: return new MisPublicacionesFragment();
+            case 1: return  new MisLikesFragment();
+            case 2:  return  new AjustesFragment();
+            default: return  new MisPublicacionesFragment();
         }
-        return fragment;
     }
 
     @Override

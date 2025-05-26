@@ -1,4 +1,4 @@
-package com.example.gamehub.model;
+package com.example.gamehub.Utils;
 
 import android.view.LayoutInflater;
 import android.view.View;
