@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.gamehub.R;
 import com.example.gamehub.Utils.PerfilPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -57,7 +58,10 @@ public class PerfilFragment extends Fragment {
 
         SharedPreferences preferences = requireActivity().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
         nickname_tv.setText(preferences.getString("nickname", "nombre de usuario"));
-        // avatar_iv.setImageResource(preferences.getString("avatar", "avatar"));
+        Glide.with(this)
+                .load(R.drawable.icon_perfil)
+                .circleCrop()
+                .into(avatar_iv);
 
         PerfilPagerAdapter adapter = new PerfilPagerAdapter(requireActivity());
         viewPager.setAdapter(adapter);
@@ -75,8 +79,7 @@ public class PerfilFragment extends Fragment {
                 default:
                     tab.setText("Mis publicaciones");
                     break;
-            }
-            ;
+            };
         }
         ).attach();
     }

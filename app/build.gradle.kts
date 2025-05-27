@@ -40,6 +40,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.google.code.gson:gson:2.12.1")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("com.google.firebase:firebase-database:20.3.0")
+
 
     implementation(libs.appcompat)
     implementation(libs.material)

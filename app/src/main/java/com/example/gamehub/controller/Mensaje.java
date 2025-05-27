@@ -1,44 +1,34 @@
 package com.example.gamehub.controller;
 
-import java.time.LocalDateTime;
-
 public class Mensaje {
-    private int id;
-    private Chat chat;
-    private Usuario autor;
+    private String idChat;
+    private String idAutor;
     private String contenido;
-    private LocalDateTime fecha_envio;
+    private long timestamp;
 
-    public Mensaje(int id, Chat chat, Usuario autor, String contenido, LocalDateTime fecha_envio) {
-        this.id = id;
-        this.chat = chat;
-        this.autor = autor;
+    public Mensaje() {}
+
+    public Mensaje(String idChat, String idAutor, String contenido, long timestamp) {
+        this.idChat = idChat;
+        this.idAutor = idAutor;
         this.contenido = contenido;
-        this.fecha_envio = fecha_envio;
+        this.timestamp = timestamp;
     }
 
-    public int getId() {
-        return id;
+    public String getIdChat() {
+        return idChat;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdChat(String idChat) {
+        this.idChat = idChat;
     }
 
-    public Chat getChat() {
-        return chat;
+    public String getIdAutor() {
+        return idAutor;
     }
 
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
-
-    public Usuario getAutor() {
-        return autor;
-    }
-
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
+    public void setIdAutor(String idAutor) {
+        this.idAutor = idAutor;
     }
 
     public String getContenido() {
@@ -49,11 +39,11 @@ public class Mensaje {
         this.contenido = contenido;
     }
 
-    public LocalDateTime getFecha_envio() {
-        return fecha_envio;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setFecha_envio(LocalDateTime fecha_envio) {
-        this.fecha_envio = fecha_envio;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }
