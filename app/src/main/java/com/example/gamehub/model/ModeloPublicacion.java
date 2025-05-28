@@ -42,13 +42,13 @@ public class ModeloPublicacion {
         Volley.newRequestQueue(context).add(request);
     }
 
-    public void buscarPublicacionLike(CallBack<Publicacion> callBack){
-        String url = Utilidades.getUrl(context) + "/publicaciones/buscarLike.php";
+    public void darLike(String id_firebase, int id_publicacion, CallBack<Boolean> callBack){
+        String url = Utilidades.getUrl(context) + "/publicaciones/darLike.php?id_firebase=" + id_firebase + "&id_publicacion=" + id_publicacion;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 response -> {
                     try {
                         if(response.getBoolean("success")){
-
+                            callBack.onSuccess(response.getBoolean("data"));
                         } else {
                             callBack.onError(response.getString("msg"));
                         }

@@ -17,6 +17,7 @@ import com.example.gamehub.Utils.CallBack;
 import com.example.gamehub.controller.Publicacion;
 import com.example.gamehub.Utils.AdaptadorPublicacion;
 import com.example.gamehub.model.ModeloPublicacion;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,14 +48,14 @@ public class HomeFragment extends Fragment {
         publicacionRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Publicacion> listaInicial = new ArrayList<>();
-        AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(listaInicial);
+        AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(listaInicial, requireActivity());
         publicacionRv.setAdapter(adaptadorPublicacion);
 
         modeloHome = new ModeloPublicacion(requireActivity());
         modeloHome.getAllPublicaciones(new CallBack<List<Publicacion>>() {
             @Override
             public void onSuccess(List<Publicacion> resultado) {
-                AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(resultado);
+                AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(resultado, requireActivity());
                 publicacionRv.setAdapter(adaptadorPublicacion);
             }
 
@@ -63,6 +64,11 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error al cargar publicaciones: " + msg);
             }
+        });
+
+        FloatingActionButton addPubli_btn = view.findViewById(R.id.addPubli_btn);
+        addPubli_btn.setOnClickListener(v -> {
+            
         });
         return view;
     }

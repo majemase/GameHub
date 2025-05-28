@@ -49,7 +49,7 @@ public class MisLikesFragment extends Fragment {
         publicacionRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Publicacion> listaInicial = new ArrayList<>();
-        AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(listaInicial);
+        AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(listaInicial, requireActivity());
         publicacionRv.setAdapter(adaptadorPublicacion);
 
         SharedPreferences preferences = requireActivity().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
@@ -58,13 +58,13 @@ public class MisLikesFragment extends Fragment {
         modeloPublicacion.getPubLikesUsuario(preferences.getString("id_firebase", ""), new CallBack<List<Publicacion>>() {
             @Override
             public void onSuccess(List<Publicacion> resultado) {
-                AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(resultado);
+                AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(resultado, requireActivity());
                 publicacionRv.setAdapter(adaptadorPublicacion);
             }
 
             @Override
             public void onError(String msg) {
-                Toast.makeText(getContext(), "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error al cargar publicaciones: " + msg);
             }
         });

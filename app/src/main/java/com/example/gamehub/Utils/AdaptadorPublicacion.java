@@ -1,25 +1,34 @@
 package com.example.gamehub.Utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gamehub.R;
 import com.example.gamehub.controller.Publicacion;
+import com.example.gamehub.model.ModeloPublicacion;
 
 import java.util.List;
 
 public class AdaptadorPublicacion extends RecyclerView.Adapter<AdaptadorPublicacion.HolderPublicacion> {
 
     private List<Publicacion> dataset;
+    private ModeloPublicacion modeloPublicacion;
+    private SharedPreferences preferences;
 
-    public AdaptadorPublicacion(List<Publicacion> dataset) {
+    public AdaptadorPublicacion(List<Publicacion> dataset, Context context) {
         this.dataset = dataset;
+        modeloPublicacion = new ModeloPublicacion(context);
+        preferences = context.getSharedPreferences("usuario", Context.MODE_PRIVATE);
         notifyDataSetChanged();
     }
 
@@ -40,8 +49,23 @@ public class AdaptadorPublicacion extends RecyclerView.Adapter<AdaptadorPublicac
         holder.numComentarios_tv.setText(String.valueOf(p.getNumComentarios()));
 
         holder.like_btn.setOnClickListener(v -> {
-            p.setNumLikes(p.getNumLikes() + 1);
-            holder.numLikes_tv.setText(String.valueOf(p.getNumLikes()));
+            modeloPublicacion.darLike(preferences.getString("id_firebase", ""), p.getId(), new CallBack<Boolean>() {
+                @Override
+                public void onSuccess(Boolean like) {
+                    if(like){
+                        p.setNumLikes(p.getNumLikes() + 1);
+                    }else{
+                        p.setNumLikes(p.getNumLikes() - 1);
+                    }
+                    holder.numLikes_tv.setText(String.valueOf(p.getNumLikes()));
+                }
+
+                @Override
+                public void onError(String msg) {
+                    Toast.makeText(v.getContext(), "Error al dar like", Toast.LENGTH_SHORT).show();
+                    Log.e("Error", "Error al dar like: " + msg);
+                }
+            });
         });
     }
 
