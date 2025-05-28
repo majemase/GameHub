@@ -18,7 +18,7 @@
 
         <!-- Usuario y hora -->
         <TextView
-            android:id="@+id/autor_tv"
+            android:id="@+id/amigo_tv"
             style="?attr/textAppearanceBodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

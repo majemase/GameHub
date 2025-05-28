@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/amigo_mcv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="2dp"
+    app:strokeColor="?attr/colorOutline"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="26dp">
+
+        <!-- Usuario y hora -->
+        <TextView
+            android:id="@+id/amigo_tv"
+            style="?attr/textAppearanceBodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Usuario"
+            android:textColor="?attr/colorOnSurface" />
+
+        <!-- Título o encabezado del post -->
+
+        <!-- Contenido del post -->
+
+        <!-- Imagen opcional -->
+
+        <!-- Acciones -->
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -14,8 +14,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModeloUsuario {
     private final Context context;
@@ -87,6 +91,34 @@ public class ModeloUsuario {
                     try {
                         if(response.getBoolean("success")){
                             callback.onSuccess(usuario);
+                        } else {
+                            callback.onError(response.getString("msg"));
+                        }
+                    } catch (Exception e) {
+                        callback.onError(e.getMessage());
+                    }
+                },
+                error -> callback.onError(error.getMessage())
+        );
+
+        Volley.newRequestQueue(context).add(request);
+    }
+
+    public void obtenerAmigos(String id_firebase, CallBack<List<Usuario>> callback){
+        String url = Utilidades.getUrl(context) + "/usuario/getListadoAmigos.php?id_firebase="+id_firebase;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        if(response.getBoolean("success")){
+                            JSONArray data = response.getJSONArray("data");
+                            List<Usuario> listaAmigos = new ArrayList<>();
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject obj = data.getJSONObject(i);
+                                Usuario amigo = new Usuario(obj.getInt("id"), null, null, null, obj.getString("id_firebase"), obj.getString("nickname"), null, null);
+                                listaAmigos.add(amigo);
+                            }
+                            callback.onSuccess(listaAmigos);
                         } else {
                             callback.onError(response.getString("msg"));
                         }

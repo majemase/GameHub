@@ -81,7 +81,7 @@ public class AdaptadorPublicacion extends RecyclerView.Adapter<AdaptadorPublicac
 
         public HolderPublicacion(@NonNull View itemView) {
             super(itemView);
-            autor_tv = itemView.findViewById(R.id.autor_tv);
+            autor_tv = itemView.findViewById(R.id.amigo_tv);
             contenido_tv = itemView.findViewById(R.id.contenido_tv);
             numLikes_tv = itemView.findViewById(R.id.numLikes_tv);
             numComentarios_tv = itemView.findViewById(R.id.numComentarios_tv);
