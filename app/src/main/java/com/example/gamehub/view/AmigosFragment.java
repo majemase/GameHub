@@ -16,13 +16,9 @@ import android.widget.Toast;
 
 import com.example.gamehub.R;
 import com.example.gamehub.Utils.AdaptadorAmigos;
-import com.example.gamehub.Utils.AdaptadorPublicacion;
 import com.example.gamehub.Utils.CallBack;
-import com.example.gamehub.controller.Publicacion;
 import com.example.gamehub.controller.Usuario;
-import com.example.gamehub.model.ModeloPublicacion;
 import com.example.gamehub.model.ModeloUsuario;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,10 +67,11 @@ public class AmigosFragment extends Fragment {
 
             @Override
             public void onError(String msg) {
-                Toast.makeText(getContext(), "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
-                Log.e("Error", "Error al cargar publicaciones: " + msg);
+                Toast.makeText(getContext(), "Error al cargar amigos", Toast.LENGTH_SHORT).show();
+                Log.e("Error", "Error al cargar amigos: " + msg);
             }
         });
+
         return view;
     }
 }

@@ -1,6 +1,5 @@
 package com.example.gamehub.model;
 
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +21,7 @@ public class ModeloMensaje {
     private ValueEventListener mensajeListener;
 
     public ModeloMensaje() {
-        this.refMensaje = FirebaseDatabase.getInstance().getReference("mensajes");
+        this.refMensaje = FirebaseDatabase.getInstance("https://gamehub-2b697-default-rtdb.europe-west1.firebasedatabase.app/").getReference("mensajes");
     }
 
     public void enviarMensaje(String idChat, String idAutor, String contenido, CallBack<Void> callBack) {

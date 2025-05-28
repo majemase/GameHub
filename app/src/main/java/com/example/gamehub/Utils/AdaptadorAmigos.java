@@ -1,6 +1,7 @@
 package com.example.gamehub.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gamehub.R;
 import com.example.gamehub.controller.Usuario;
 import com.example.gamehub.model.ModeloUsuario;
+import com.example.gamehub.view.MensajesActivity;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -36,9 +39,16 @@ public class AdaptadorAmigos extends RecyclerView.Adapter<AdaptadorAmigos.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorAmigos.ViewHolder holder, int position) {
-        holder.nickname_tv.setText(dataset.get(position).getNickname());
+        Usuario amigo = dataset.get(position);
+        holder.nickname_tv.setText(amigo.getNickname());
         holder.amigo_mcv.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Prueba pulsado en un amigo", Toast.LENGTH_SHORT).show();
+            String id_amigo = amigo.getId_firebase();
+            String id_usuario = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            String idChat = UtilidadesChat.generarIdChat(id_usuario, id_amigo);
+            Intent intent = new Intent(v.getContext(), MensajesActivity.class);
+            intent.putExtra("id_chat", idChat);
+            v.getContext().startActivity(intent);
         });
     }
 
