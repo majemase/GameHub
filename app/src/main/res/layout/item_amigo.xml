@@ -5,32 +5,62 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="0dp"
-    app:cardElevation="2dp"
+    app:cardElevation="16dp"
     app:strokeColor="?attr/colorOutline"
     app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="26dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-        <!-- Usuario y hora -->
-        <TextView
-            android:id="@+id/amigo_tv"
-            style="?attr/textAppearanceBodyLarge"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/amigo_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorOnSurface" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/botones_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="Usuario"
-            android:textColor="?attr/colorOnSurface" />
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
 
-        <!-- Título o encabezado del post -->
+            <Button
+                android:id="@+id/aceptar_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aceptar"
+                android:visibility="gone" />
 
-        <!-- Contenido del post -->
+            <Button
+                android:id="@+id/rechazar_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rechazar"
+                android:visibility="gone" />
 
-        <!-- Imagen opcional -->
+            <Button
+                android:id="@+id/agregar_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar"
+                android:visibility="gone" />
+        </LinearLayout>
 
-        <!-- Acciones -->
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

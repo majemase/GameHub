@@ -10,6 +10,8 @@ import com.example.gamehub.Utils.Utilidades;
 import com.example.gamehub.controller.Publicacion;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -93,6 +95,31 @@ public class ModeloPublicacion {
                             JSONArray data = response.getJSONArray("data");
                             List<Publicacion> posts = Publicacion.fromJsonArray(data);
                             callBack.onSuccess(posts);
+                        } else {
+                            callBack.onError(response.getString("msg"));
+                        }
+                    } catch (Exception e) {
+                        callBack.onError(e.getMessage());
+                    }
+                },
+                error -> callBack.onError(error.getMessage())
+        );
+
+        Volley.newRequestQueue(context).add(request);
+    }
+
+    public void addPublicacion(String id_firebase, String texto, CallBack<Boolean> callBack) throws JSONException {
+        String url = Utilidades.getUrl(context) + "/publicaciones/getPubLikesUsuario.php?id_firebase=" + id_firebase;
+
+        JSONObject datosPublicacion = new JSONObject();
+        datosPublicacion.put("id_firebase", id_firebase);
+        datosPublicacion.put("contenido", texto);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, datosPublicacion,
+                response -> {
+                    try {
+                        if (response.getBoolean("success")) {
+                            callBack.onSuccess(response.getBoolean("success"));
                         } else {
                             callBack.onError(response.getString("msg"));
                         }
