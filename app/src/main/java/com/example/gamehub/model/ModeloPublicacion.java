@@ -109,13 +109,13 @@ public class ModeloPublicacion {
     }
 
     public void addPublicacion(String id_firebase, String texto, CallBack<Boolean> callBack) throws JSONException {
-        String url = Utilidades.getUrl(context) + "/publicaciones/getPubLikesUsuario.php?id_firebase=" + id_firebase;
+        String url = Utilidades.getUrl(context) + "/publicaciones/addPublicacion.php";
 
         JSONObject datosPublicacion = new JSONObject();
         datosPublicacion.put("id_firebase", id_firebase);
         datosPublicacion.put("contenido", texto);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, datosPublicacion,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, datosPublicacion,
                 response -> {
                     try {
                         if (response.getBoolean("success")) {

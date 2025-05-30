@@ -84,6 +84,11 @@ public class MensajesActivity extends AppCompatActivity {
                 Toast.makeText(MensajesActivity.this, "Error: " + msg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        modeloMensaje.detenerEscuchas(idChat);
     }
 }

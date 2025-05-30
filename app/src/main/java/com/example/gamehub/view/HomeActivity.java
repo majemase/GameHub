@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.homeFragment_nav) loadFragment(new HomeFragment());
                 if (item.getItemId() == R.id.amigosFragment_nav) loadFragment(new AmigosFragment());
-                if (item.getItemId() == R.id.tiendaFragment_nav) loadFragment(new TiendaFragment());
+                //if (item.getItemId() == R.id.tiendaFragment_nav) loadFragment(new TiendaFragment());
                 if (item.getItemId() == R.id.perfilFragment_nav) loadFragment(new PerfilFragment());
                 return true;
             }
