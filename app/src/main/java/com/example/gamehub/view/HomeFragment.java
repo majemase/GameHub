@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onError(String msg) {
-                Toast.makeText(getContext(), "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error al cargar publicaciones: " + msg);
             }
         });

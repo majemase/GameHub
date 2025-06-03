@@ -54,11 +54,12 @@ public class AddPublicacionActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Boolean resultado) {
                         Toast.makeText(AddPublicacionActivity.this, "Has añadido una publicacion", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
 
                     @Override
                     public void onError(String msg) {
-                        Toast.makeText(AddPublicacionActivity.this, "Ha ocurrido un error al publicar", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddPublicacionActivity.this, "Ha ocurrido un error al publicar " + msg, Toast.LENGTH_SHORT).show();
                     }
                 });
             } catch (JSONException e) {

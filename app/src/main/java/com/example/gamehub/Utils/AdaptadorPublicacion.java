@@ -1,6 +1,7 @@
 package com.example.gamehub.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gamehub.view.AddComentarioActivity;
 import com.example.gamehub.R;
 import com.example.gamehub.controller.Publicacion;
 import com.example.gamehub.model.ModeloPublicacion;
@@ -66,6 +68,12 @@ public class AdaptadorPublicacion extends RecyclerView.Adapter<AdaptadorPublicac
                     Log.e("Error", "Error al dar like: " + msg);
                 }
             });
+        });
+
+        holder.comentario_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), AddComentarioActivity.class);
+            intent.putExtra("id_publicacion", String.valueOf(p.getId()));
+            v.getContext().startActivity(intent);
         });
     }
 

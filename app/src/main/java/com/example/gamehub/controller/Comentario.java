@@ -1,6 +1,16 @@
 package com.example.gamehub.controller;
 
+import com.example.gamehub.Utils.LocalDateTimeAdapter;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Comentario {
     private int id;
@@ -55,5 +65,14 @@ public class Comentario {
 
     public void setFecha_creacion(LocalDateTime fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
+    }
+
+    public static List<Comentario> fromJsonArray(JSONArray jsonArray) throws JSONException {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+
+        Type listType = new TypeToken<List<Comentario>>() {}.getType();
+        return gson.fromJson(jsonArray.toString(), listType);
     }
 }
