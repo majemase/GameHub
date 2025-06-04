@@ -65,7 +65,7 @@ public class RegistroFragment extends Fragment {
             String pass = pass_input.getText().toString();
 
             if(!nombre.isEmpty() || !nickname.isEmpty() || !email.isEmpty() || !pass.isEmpty()){
-                registro = new ModeloUsuario(requireActivity());
+                registro = new ModeloUsuario(getContext());
 
                 Usuario usuario = new Usuario(0, nombre, email, pass, "", nickname, "", LocalDateTime.now());
 

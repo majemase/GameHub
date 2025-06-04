@@ -56,7 +56,7 @@ public class PerfilFragment extends Fragment {
         nickname_tv = view.findViewById(R.id.nickname_tv);
         avatar_iv = view.findViewById(R.id.avatar_iv);
 
-        SharedPreferences preferences = requireActivity().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
+        SharedPreferences preferences = getContext().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
         nickname_tv.setText(preferences.getString("nickname", "nombre de usuario"));
         Glide.with(this)
                 .load(R.drawable.icon_perfil)

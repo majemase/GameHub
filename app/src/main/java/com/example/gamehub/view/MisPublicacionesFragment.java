@@ -49,16 +49,16 @@ public class MisPublicacionesFragment extends Fragment {
         publicacionRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Publicacion> listaInicial = new ArrayList<>();
-        AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(listaInicial, requireActivity());
+        AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(listaInicial, getContext());
         publicacionRv.setAdapter(adaptadorPublicacion);
 
-        SharedPreferences preferences = requireActivity().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
+        SharedPreferences preferences = getContext().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
 
-        modeloPublicacion = new ModeloPublicacion(requireActivity());
+        modeloPublicacion = new ModeloPublicacion(getContext());
         modeloPublicacion.getPublicacionesUsuario(preferences.getString("id_firebase", ""), new CallBack<List<Publicacion>>() {
             @Override
             public void onSuccess(List<Publicacion> resultado) {
-                AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(resultado, requireActivity());
+                AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(resultado, getContext());
                 publicacionRv.setAdapter(adaptadorPublicacion);
             }
 

@@ -49,27 +49,27 @@ public class HomeFragment extends Fragment {
         publicacionRv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Publicacion> listaInicial = new ArrayList<>();
-        AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(listaInicial, requireActivity());
+        AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(listaInicial, getContext());
         publicacionRv.setAdapter(adaptadorPublicacion);
 
-        modeloHome = new ModeloPublicacion(requireActivity());
+        modeloHome = new ModeloPublicacion(getContext());
         modeloHome.getAllPublicaciones(new CallBack<List<Publicacion>>() {
             @Override
             public void onSuccess(List<Publicacion> resultado) {
-                AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(resultado, requireActivity());
+                AdaptadorPublicacion adaptadorPublicacion = new AdaptadorPublicacion(resultado, getContext());
                 publicacionRv.setAdapter(adaptadorPublicacion);
             }
 
             @Override
             public void onError(String msg) {
-                Toast.makeText(requireActivity(), "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error al cargar publicaciones", Toast.LENGTH_SHORT).show();
                 Log.e("Error", "Error al cargar publicaciones: " + msg);
             }
         });
 
         FloatingActionButton addPubli_btn = view.findViewById(R.id.addPubli_btn);
         addPubli_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), AddPublicacionActivity.class);
+            Intent intent = new Intent(getContext(), AddPublicacionActivity.class);
             startActivity(intent);
         });
         return view;

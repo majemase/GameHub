@@ -1,5 +1,6 @@
 package com.example.gamehub.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -52,11 +53,10 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SharedPreferences preferences = requireActivity().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
+        SharedPreferences preferences = getContext().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
         if(preferences.getBoolean("mantener_sesion", false)){
             Intent intent = new Intent(getContext(), HomeActivity.class);
             startActivity(intent);
-            requireActivity().finish();
         }
 
 
@@ -69,7 +69,7 @@ public class LoginFragment extends Fragment {
             String pass = pass_input.getText().toString();
 
             if(!email.isEmpty() || !pass.isEmpty()){
-                login = new ModeloUsuario(requireActivity());
+                login = new ModeloUsuario(getContext());
 
                 login.loginUsuario(email, pass, new CallBack<Usuario>(){
 
@@ -78,7 +78,6 @@ public class LoginFragment extends Fragment {
                         Intent intent = new Intent(getContext(), HomeActivity.class);
                         login.guardarUsuario(usuario);
                         startActivity(intent);
-                        requireActivity().finish();
                         Toast.makeText(getContext(), "Login correcto", Toast.LENGTH_SHORT).show();
                         Log.i("Login", "Login correcto: " + usuario.toString());
                     }
