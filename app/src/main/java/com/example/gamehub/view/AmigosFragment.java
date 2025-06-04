@@ -1,6 +1,7 @@
 package com.example.gamehub.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import com.example.gamehub.Utils.AdaptadorAmigos;
 import com.example.gamehub.Utils.CallBack;
 import com.example.gamehub.controller.Usuario;
 import com.example.gamehub.model.ModeloUsuario;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,12 @@ public class AmigosFragment extends Fragment {
 
         preferences = requireActivity().getSharedPreferences("usuario", Context.MODE_PRIVATE);
         String id_firebase = preferences.getString("id_firebase", "");
+
+        FloatingActionButton addAmigo_btn = view.findViewById(R.id.addAmigo_btn);
+        addAmigo_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), AddAmigoActivity.class);
+            startActivity(intent);
+        });
 
         modeloUsuario = new ModeloUsuario(requireActivity());
         modeloUsuario.obtenerAmigos(id_firebase, new CallBack<List<Usuario>>() {

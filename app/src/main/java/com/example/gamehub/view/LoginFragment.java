@@ -53,11 +53,12 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SharedPreferences preferences = requireActivity().getSharedPreferences("usuario", getContext().MODE_PRIVATE);
-        if(preferences.getBoolean("remember", false)){
+        if(preferences.getBoolean("mantener_sesion", false)){
             Intent intent = new Intent(getContext(), HomeActivity.class);
             startActivity(intent);
             requireActivity().finish();
         }
+
 
         email_input = view.findViewById(R.id.email_input);
         pass_input = view.findViewById(R.id.pass_input);

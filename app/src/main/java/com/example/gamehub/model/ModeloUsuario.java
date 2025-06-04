@@ -19,7 +19,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModeloUsuario {
     private final Context context;
@@ -132,13 +134,72 @@ public class ModeloUsuario {
         Volley.newRequestQueue(context).add(request);
     }
 
+    public void buscarUsuariosNickname(String nickname, CallBack<List<Usuario>> callback) {
+        String url = Utilidades.getUrl(context) + "/usuario/buscarUsuario.php?nickname=" + nickname;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        if (response.getBoolean("success")) {
+                            JSONArray data = response.getJSONArray("data");
+                            List<Usuario> listaEncontrados = new ArrayList<>();
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject obj = data.getJSONObject(i);
+                                Usuario usuario = new Usuario(
+                                        obj.getInt("id"),
+                                        null, null, null,
+                                        obj.getString("id_firebase"),
+                                        obj.getString("nickname"),
+                                        null, null
+                                );
+                                listaEncontrados.add(usuario);
+                            }
+                            callback.onSuccess(listaEncontrados);
+                        } else {
+                            callback.onError(response.getString("msg"));
+                        }
+                    } catch (Exception e) {
+                        callback.onError(e.getMessage());
+                    }
+                },
+                error -> callback.onError(error.getMessage())
+        );
+
+        Volley.newRequestQueue(context).add(request);
+    }
+
+    public void enviarSolicitudAmistad(String id_firebase1, String id_firebase2, CallBack<String> callback) {
+        String url = Utilidades.getUrl(context) + "/usuario/addAmigo.php";
+
+        Map<String, String> params = new HashMap<>();
+        params.put("id_usuario1", id_firebase1);
+        params.put("id_usuario2", id_firebase2);
+        params.put("accion", "enviar");
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
+                response -> {
+                    try {
+                        if (response.getBoolean("success")) {
+                            callback.onSuccess(response.getString("msg"));
+                        } else {
+                            callback.onError(response.getString("msg"));
+                        }
+                    } catch (Exception e) {
+                        callback.onError(e.getMessage());
+                    }
+                },
+                error -> callback.onError(error.getMessage())
+        );
+
+        Volley.newRequestQueue(context).add(request);
+    }
+
     public void guardarUsuario(Usuario usuario){
         SharedPreferences preferences = context.getSharedPreferences("usuario", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("nickname", usuario.getNickname());
         editor.putString("id_firebase", usuario.getId_firebase());
         editor.putString("email", usuario.getEmail());
-        //editor.putInt(R.drawable.icon_perfil, usuario.getUrl_avatar());
         editor.commit();
     }
 }

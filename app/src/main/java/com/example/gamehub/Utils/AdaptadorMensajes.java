@@ -46,6 +46,7 @@ public class AdaptadorMensajes extends RecyclerView.Adapter<AdaptadorMensajes.Vi
             holder.burbuja_ly.setGravity(Gravity.END);
             holder.contenido_tv.setBackgroundResource(R.drawable.burbuja_der);
         } else {
+            holder.burbuja_ly.setGravity(Gravity.START);
             holder.contenido_tv.setBackgroundResource(R.drawable.burbuja_izq);
         }
     }
